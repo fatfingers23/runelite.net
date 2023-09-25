@@ -1,4 +1,4 @@
-module.exports = file => {
+export default function (file) {
   // Remove cd and extension
   file = file.match(/([\w\d-.]+)\.md/)[1]
 

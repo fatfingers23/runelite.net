@@ -1,20 +1,15 @@
-const md = require('markdown-it')
-const { html5Media } = require('markdown-it-html5-media')
-const fm = require('front-matter')
-const loaderUtils = require('loader-utils')
+import md from 'markdown-it'
+import { html5Media } from 'markdown-it-html5-media'
+import fm from 'front-matter'
+import loaderUtils from 'loader-utils'
 
-module.exports = function (source) {
-  if (this.cacheable) {
-    this.cacheable()
-  }
-
+export default function (source) {
   let options
   try {
     options = loaderUtils.parseQuery(this.query)
   } catch (e) {
     options = {}
   }
-
   const frontMatterContext = fm(source)
   const obj = frontMatterContext.attributes
   const parser = md({
@@ -42,6 +37,5 @@ module.exports = function (source) {
   if (match && match.length >= 2) {
     obj.image = match[1]
   }
-
-  return 'module.exports = ' + JSON.stringify(obj)
+  return obj
 }

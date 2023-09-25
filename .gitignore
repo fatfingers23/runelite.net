@@ -62,3 +62,7 @@ yarn.lock
 build/
 .idea/
 tags
+dist
+
+# misc
+.DS_Store

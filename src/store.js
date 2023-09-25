@@ -3,6 +3,7 @@ import { persistStore, persistReducer, createTransform } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunkMiddleware from './middleware/thunk-middleware'
 import rootReducer from './modules'
+import logger from 'redux-logger'
 
 /**
  * Configure react store
@@ -16,7 +17,7 @@ export default callback => {
 
   // Add logger
   if (isDebug) {
-    middlewares.push(require('redux-logger').default)
+    middlewares.push(logger)
   }
 
   // Create reducer

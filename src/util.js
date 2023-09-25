@@ -42,7 +42,7 @@ export const flattenMap = map => {
 export const toMMSS = s => {
   const minutes = Math.floor(s / 60)
   // Weird arithmetic is needed here to prevent rounding errors due to JS's floating point math
-  const seconds = Math.round(s % 60 * 10) / 10
+  const seconds = Math.round((s % 60) * 10) / 10
   const minutesStr = String(minutes).padStart(2, '0')
   const secondsStr = String(seconds).padStart(2, '0')
   return minutesStr + ':' + secondsStr

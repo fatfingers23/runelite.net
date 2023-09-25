@@ -1,32 +1,36 @@
 import parseBlog from './parse-blog'
+import markdownLoader from './markdown-loader'
 
-const blog = require
-  .context('!null-loader!./_posts', false, /.md$/)
-  .keys()
-  .sort()
-  .reverse()
-  .reduce((memo, fileName) => {
-    // Parse blog metadata
-    const parsed = parseBlog(fileName)
+const importBlogs = import.meta.glob('./_posts/*.md', { as: 'raw' })
+const blogFileNames = Object.keys(importBlogs).sort().reverse()
 
-    const resolver = () => {
-      const mapper = md => {
-        return {
-          id: parsed.id,
-          date: parsed.date,
-          ...md
-        }
+const blog = blogFileNames.reduce((memo, fileName) => {
+  // Parse blog metadata
+  const parsed = parseBlog(fileName)
+
+  const resolver = async () => {
+    const mapper = md => {
+      const parseMarkdown = markdownLoader(md)
+      return {
+        id: parsed.id,
+        date: parsed.date,
+        ...parseMarkdown
       }
-
-      return import(`!./markdown-loader!./_posts/${parsed.file}.md`).then(
-        mapper
-      )
     }
 
-    return memo.set(parsed.id.toLowerCase(), resolver)
-  }, new Map())
+    return importBlogs[fileName]().then(mapper)
+  }
+
+  return memo.set(parsed.id.toLowerCase(), resolver)
+}, new Map())
 
 export const getBlog = id => {
+  const blogFileName = `./_posts/${id}.md`
+
+  if (blogFileNames.includes(blogFileName)) {
+    //TODO may have to dynamically log in blog posts here
+  }
+
   const post = blog.get(id.toLowerCase())
 
   if (post) {
