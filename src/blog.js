@@ -25,12 +25,6 @@ const blog = blogFileNames.reduce((memo, fileName) => {
 }, new Map())
 
 export const getBlog = id => {
-  const blogFileName = `./_posts/${id}.md`
-
-  if (blogFileNames.includes(blogFileName)) {
-    //TODO may have to dynamically log in blog posts here
-  }
-
   const post = blog.get(id.toLowerCase())
 
   if (post) {

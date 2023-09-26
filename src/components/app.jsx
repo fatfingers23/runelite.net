@@ -10,8 +10,17 @@ import Loader from './loader'
 import Async from './async'
 import NotFound from './not-found'
 import { isLoggedIn, login } from '../modules/account'
+import { createBrowserHistory } from 'history'
 
-const App = ({ loading, navbarDark, login, logout, loggedIn, username }) => (
+const App = ({
+  loading,
+  navbarDark,
+  login,
+  logout,
+  loggedIn,
+  username,
+  url
+}) => (
   <div style={{ height: '100%' }}>
     <Loader loading={loading > 0} />
     <Navigation
@@ -21,7 +30,7 @@ const App = ({ loading, navbarDark, login, logout, loggedIn, username }) => (
       loggedIn={loggedIn}
       username={username}
     />
-    <Router>
+    <Router history={createBrowserHistory()} url={url}>
       <Async path="/" getComponent={() => import('../routes/home')} />
       <Async path="/blog" getComponent={() => import('../routes/blog')} />
       <Async
