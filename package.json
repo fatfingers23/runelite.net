@@ -15,7 +15,6 @@
     "@gouch/to-title-case": "2.2.1",
     "@preact/preset-vite": "^2.5.0",
     "bootstrap": "4.4.1",
-    "fastestsmallesttextencoderdecoder": "^1.0.22",
     "leaflet": "^1.7.1",
     "preact": "^10.4.1",
     "preact-router": "^3.2.1",
@@ -61,7 +60,7 @@
     "build": "vite build",
     "dev": "vite dev",
     "test": "vitest",
-    "prender": "node prerender.js"
+    "prerender": "node prerender.js"
   },
   "husky": {
     "hooks": {

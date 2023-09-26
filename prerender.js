@@ -1,11 +1,3 @@
-// const fs = require('fs')
-// const path = require('path')
-// const mkdirp = require('mkdirp')
-// const Prerenderer = require('@prerenderer/prerenderer')
-// // Make sure you install a renderer as well!
-// const JSDOMRenderer = require('@prerenderer/renderer-jsdom')
-// const parseBlog = require("./src/parse-blog");
-
 import fs from 'fs'
 import path from 'path'
 import mkdirp from 'mkdirp'
@@ -14,6 +6,7 @@ import JSDOMRenderer from '@prerenderer/renderer-jsdom'
 import parseBlog from './src/parse-blog.js'
 
 const posts = fs.readdirSync(path.join('src', '_posts'))
+const BUILD_DIR = 'dist'
 const routes = [
   '/',
   '/features',
@@ -66,16 +59,13 @@ prerenderer
     // }
     renderedRoutes.forEach(renderedRoute => {
       try {
-        // A smarter implementation would be required, but this does okay for an example.
-        // Don't copy this directly!!!
-        const outputDir = path.join('dist', renderedRoute.route)
+        const outputDir = path.join(BUILD_DIR, renderedRoute.route)
         const outputFile = `${outputDir}/index.html`
-
+        console.log(outputFile)
         mkdirp.sync(outputDir)
         fs.writeFileSync(outputFile, renderedRoute.html.trim())
       } catch (e) {
-        console.log(e)
-        // Handle errors.
+        console.debug(e)
       }
     })
 
@@ -84,6 +74,7 @@ prerenderer
   })
   .catch(err => {
     // Shut down the server and renderer.
+    console.debug(err)
     return prerenderer.destroy()
     // Handle errors.
   })

@@ -10,7 +10,6 @@ import Loader from './loader'
 import Async from './async'
 import NotFound from './not-found'
 import { isLoggedIn, login } from '../modules/account'
-import { createBrowserHistory } from 'history'
 
 const App = ({
   loading,
@@ -30,7 +29,7 @@ const App = ({
       loggedIn={loggedIn}
       username={username}
     />
-    <Router history={createBrowserHistory()} url={url}>
+    <Router url={url}>
       <Async path="/" getComponent={() => import('../routes/home')} />
       <Async path="/blog" getComponent={() => import('../routes/blog')} />
       <Async
