@@ -1,0 +1,1 @@
+import{e,M as i,h as a}from"./index-d1184385.js";import{L as t}from"./layout-28bd1606.js";const r=()=>e(t,{children:[e(i,{title:`Loading - ${a.title}`}),e("section",{id:"loading",children:e("div",{class:"content-section",children:[e("h1",{class:"page-header",children:"Loading..."}),e("p",{children:"Please wait while you are redirected."})]})})]});export{r as default};
